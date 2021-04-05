@@ -1,3 +1,0 @@
-str;a:int;1
-str;b:int;2
-str;c:int;3
