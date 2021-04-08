@@ -2,6 +2,7 @@ import os
 import time
 import random
 import discord
+import threading
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -50,6 +51,7 @@ def isInt(val):
         return False
     return True
 
+
 @client.command()
 async def lofi(ctx, arg1=None, arg2=None):
 
@@ -61,12 +63,11 @@ async def lofi(ctx, arg1=None, arg2=None):
         await voiceChannel.connect()
         print("test")
 
-    
     elif arg1 == "dc":
-        if not voice.is_connected():
-            return
-        else:
+        if voice.is_connected():
             await voice.disconnect()
+        else:
+            await ctx.send("The lofi bot is not currently connected")
 
     elif arg1 == "help":
         if arg2 == None:
@@ -75,13 +76,13 @@ async def lofi(ctx, arg1=None, arg2=None):
         elif arg2 == "!lofi":
             await ctx.send(helpList[1])
 
-        elif arg2 == "!lofi dc":
+        elif arg2 == "dc":
             await ctx.send(helpList[2])
 
-        elif arg2 == "!lofi study":
+        elif arg2 == "study":
             await ctx.send(helpList[3])
 
-        elif arg2 == "!lofi pom":
+        elif arg2 == "pom":
             await ctx.send(helpList[4])
 
         else:
@@ -94,12 +95,14 @@ async def lofi(ctx, arg1=None, arg2=None):
             return
 
         elif isInt(arg2):
-            voiceChannel = discord.utils.get(ctx.guild.voice_channels, name='General')
+            voiceChannel = discord.utils.get(
+                ctx.guild.voice_channels, name='General')
             voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
 
-            #Connect and wait for the time period specified
+            # Connect and wait for the time period specified
             await voiceChannel.connect()
             time.sleep(int(arg2)*60)
+            if time
 
             # Alert the user and disconnect the voice client if it's still there
             await ctx.send(f"Session ended")
@@ -116,7 +119,7 @@ async def lofi(ctx, arg1=None, arg2=None):
             await ctx.send("Please specify the number of cycles you would like to study for\n e.g. `!lofi pom 3`")
             return
 
-        elif is_int(arg2):
+        elif isInt(arg2):
             i = 0
             pommodoroCycle = [25, 5, 25, 5, 25, 5, 25, 15]
             while i < arg2:
@@ -131,8 +134,10 @@ async def lofi(ctx, arg1=None, arg2=None):
 
                     # run the timed connection function
                     executionTime = pommodoroCycle[x]*60
-                    voiceChannel = discord.utils.get(ctx.guild.voice_channels, name='General')
-                    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+                    voiceChannel = discord.utils.get(
+                        ctx.guild.voice_channels, name='General')
+                    voice = discord.utils.get(
+                        client.voice_clients, guild=ctx.guild)
 
                     # Connect and wait for the time period specified
                     await voiceChannel.connect()
