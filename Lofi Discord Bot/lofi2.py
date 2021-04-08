@@ -13,6 +13,18 @@ CHANNEL = os.getenv('DISCORD_CHANNEL')
 client = commands.Bot(command_prefix="!")
 
 
+@client.event
+async def on_ready():
+    print(f'⚡ {client.user} has successfully connected to Discord! ⚡')
+
+    # list connected guilds & members - not strictly production code
+    guild = discord.utils.find(lambda g: g.name == GUILD, client.guilds)
+    print(
+        f'{client.user} is connected to the following guild:\n'
+        f'{guild.name} (id: {guild.id})'
+    )
+
+
 @client.command()
 async def play(ctx, url: str):
     song_there = os.path.isfile("song.mp3")
