@@ -35,7 +35,7 @@ sessionEnd = ["Time's up! well done!",
               "Let's take a break.", "Good job! You studied well"]
 
 # strings for the help command
-helpList = ["```Commands\n1. !lofi       Play lofi hiphop - beats to relax/discord to\n2. !lofi dc    Disconnect the lofi bot\n3. !lofi study Study with lofi for a set number of minutes\n4. !lofi pom   Study to a set number of pommodoro intervals!```",
+helpList = ["```Commands\n1. !lofi       Play lofi hiphop - beats to relax/discord to\n2. !lofi dc    Disconnect the lofi bot\n3. !lofi study Study with lofi for a set number of minutes\n4. !lofi pom   Study for a set number of pommodoro intervals!```",
             "```!lofi Plays the lofi music bot indefinitely - ideal for chilling/studying for an unspecified amount of time.```",
             "```!lofi dc disconnects the lofi bot regardless of what it's doing at the time - chill vibes over.```",
             "```!lofi study [minutes] begins a lofi study session for the amount of time specified. The bot will join and play lofi, and you will be notified when the time limit is up. The bot will also disconnect.```",
