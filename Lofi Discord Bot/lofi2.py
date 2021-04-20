@@ -23,8 +23,9 @@ def isInt(val):
     return True
 
 
-lofiVideos = ["https://www.youtube.com/watch?v=5p7kA6xGSKo", "https://www.youtube.com/watch?v=p1Co7ANo6vs",
-              "https://www.youtube.com/watch?v=lTRiuFIWV54", "https://www.youtube.com/watch?v=GA9GigGuf24", "https://www.youtube.com/watch?v=Xc1Le3CSdrM"]
+lofiVideos = ["https://www.youtube.com/watch?v=liHgt4CbodY"]
+# lofiVideos = ["https://www.youtube.com/watch?v=5p7kA6xGSKo", "https://www.youtube.com/watch?v=p1Co7ANo6vs",
+#               "https://www.youtube.com/watch?v=lTRiuFIWV54", "https://www.youtube.com/watch?v=GA9GigGuf24", "https://www.youtube.com/watch?v=Xc1Le3CSdrM"]
 rainVideos = ["https://www.youtube.com/watch?v=q76bMs-NwRk&t=11s", "https://www.youtube.com/watch?v=pO2_D2iDz30",
               "https://www.youtube.com/watch?v=_x3hVRSIe2g", "https://www.youtube.com/watch?v=M9JCzXtB2_w"]
 
@@ -123,7 +124,7 @@ async def play(ctx):
 
 @client.command()
 async def leave(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=GUILD)
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     if voice.is_connected():
         await voice.disconnect()
     else:
@@ -132,7 +133,7 @@ async def leave(ctx):
 
 @client.command()
 async def pause(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=GUILD)
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     if voice.is_playing():
         voice.pause()
     else:
@@ -141,7 +142,7 @@ async def pause(ctx):
 
 @client.command()
 async def resume(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=GUILD)
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     if voice.is_paused():
         voice.resume()
     else:
@@ -150,7 +151,7 @@ async def resume(ctx):
 
 @client.command()
 async def stop(ctx):
-    voice = discord.utils.get(client.voice_clients, guild=GUILD)
+    voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
     voice.stop()
 
 
@@ -173,8 +174,11 @@ async def study(ctx, arg1):
         voiceChannel = discord.utils.get(
             ctx.guild.voice_channels, name='General')
         await ctx.send(random.choice(lofiInit))
-        await voiceChannel.connect()
         voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
+
+        if voice == None:
+            await voiceChannel.connect()
+            voice = discord.utils.get(client.voice_clients, guild=ctx.guild)
 
         ydl_opts = {
             'format': 'bestaudio/best',
