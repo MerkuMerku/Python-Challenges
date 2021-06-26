@@ -10,8 +10,9 @@ def dataCollection():
 
     soup = BeautifulSoup(htmlContent, 'html.parser')
     covidTable = soup.find("table",attrs={"id": "main_table_countries_today"})
+    return covidTable
 
-def dataSort():
+def dataExtractMain(covidTable):
     # extract the table headings from the soup
     head = covidTable.thead.find_all("tr")
     headings = []
@@ -29,11 +30,31 @@ def dataSort():
         # find all column entries in that particular row
         for tr in body[r].find_all("td"):
             row.append(tr.text.replace("\n","").strip())
+        len(row)
         data.append(row)
+
     df = pd.DataFrame(data,columns = headings)
     df.head(20)
 
-def dataSplit():
+    ######################################################################
+    #                         CLEAN DATA TABLE                           #
+    ######################################################################
+
+    NaN = np.nan
+
+    # recover appropriate columns
+    df = df.filter(['TotalCases','TotalRecovered','Serious,Critical','ActiveCases','TotalDeaths', 'Continent', 'Country,Other', ]) 
+
+    # strip artefacts
+    df = df.replace(',','', regex=True)
+    df = df.replace('\+','', regex=True)
+    df = df.replace('', NaN, regex=True)
+
+    # convert appropriate columns to integer type
+    df[['TotalCases', 'TotalRecovered','Serious,Critical','ActiveCases','TotalDeaths']] = df[['TotalCases', 'TotalRecovered','Serious,Critical','ActiveCases','TotalDeaths']].apply(pd.to_numeric, errors = 'ignore')
+    df.head(20)
+
+def dataExtractTables():
 
 
 
