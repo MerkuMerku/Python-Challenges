@@ -1,0 +1,22 @@
+{% extends "layout.html" %} 
+{% block content %} 
+    {% for world in world %}
+        <h1>{{ world.dataname }}</h1>
+        <p>Total Cases: {{ world.TotalCases }}</p>
+        <p>Total Deaths: {{ world.TotalDeaths }}</p>
+        <p>Critical Active Cases: {{ world.CriticalActive }}</p>
+        <p>Non-Critical Active Cases: {{ world.NonCriticalActive }}</p>
+
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ world.dataname }}</a>
+                    <small class="text-muted">{{ world.dataname }}</small>
+                </div>
+                <h2><a class="article-title" href="#">{{ world.dataname }}</a></h2>
+                <p class="article-content">{{ world.dataname }}</p>
+            </div>
+        </article>
+
+    {% endfor %}
+{% endblock content %}
