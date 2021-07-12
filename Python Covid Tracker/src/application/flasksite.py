@@ -54,7 +54,7 @@ class World(db.Model):
 class Continent(db.Model):
     index = db.Column(db.Integer, primary_key=True)
     total_cases = db.Column(db.Float, nullable=False)
-    total_recovered = db.Column(db.Float, nullable=False)
+    total_reovered = db.Column(db.Float, nullable=False)
     critical_active = db.Column(db.Float, nullable=False)
     total_deaths = db.Column(db.Float, nullable=False)
     non_critical_active = db.Column(db.Float, nullable=False)
